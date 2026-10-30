@@ -1,10 +1,8 @@
 import { motion } from "motion/react";
-import { BookOpen, Box, Gamepad2, GraduationCap, Layers, MapPin, PenTool } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
 import { about, education } from "../data/portfolio";
 import { DrawLine, Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 
-const COURSE_ICONS = [Gamepad2, Box, PenTool, Layers];
-const COURSE_TONES = ["bg-marigold text-ink", "bg-sky text-ink", "bg-coral text-white", "bg-midnight text-white"];
 
 function academicProgress() {
   const start = new Date(education.start).getTime();
@@ -109,37 +107,6 @@ export function AboutEducation() {
               </div>
             </article>
           </motion.div>
-        </div>
-
-        <div className="mt-16 md:mt-20">
-          <Reveal>
-            <h3 className="flex items-center gap-2 text-sm font-semibold text-ink">
-              <BookOpen className="h-4 w-4 text-blue" aria-hidden />
-              Relevant coursework
-            </h3>
-          </Reveal>
-          <Stagger as="ul" className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
-            {education.coursework.map((course, i) => {
-              const Icon = COURSE_ICONS[i % COURSE_ICONS.length];
-              return (
-                <StaggerItem as="li" key={course} className="h-full">
-                  <div className="card group flex h-full flex-col justify-between gap-10 p-6 transition-colors duration-200 hover:border-black/20">
-                    <div className="flex items-start justify-between">
-                      <span
-                        className={`flex h-10 w-10 items-center justify-center rounded-button ${
-                          COURSE_TONES[i % COURSE_TONES.length]
-                        }`}
-                      >
-                        <Icon className="h-5 w-5 transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110" aria-hidden />
-                      </span>
-                      <span className="text-xs font-medium tabular-nums text-stone">0{i + 1}</span>
-                    </div>
-                    <p className="text-lg font-semibold leading-snug tracking-tight">{course}</p>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
         </div>
       </div>
     </section>

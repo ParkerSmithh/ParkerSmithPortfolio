@@ -60,8 +60,6 @@ export function Hero() {
   const fast = useTransform(scrollYProgress, [0, 1], [0, -180]);
   const sink = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
-  const lead = hero.headlineLead.split(" ");
-
   return (
     <section
       id="top"
@@ -90,8 +88,6 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <span className="basis-full text-base font-semibold text-ink sm:basis-auto">{contact.name}</span>
-          <span aria-hidden className="hidden h-1 w-1 rounded-full bg-black/30 sm:block" />
           <span>{education.school}</span>
           <span aria-hidden className="h-1 w-1 rounded-full bg-black/30" />
           <span className="inline-flex items-center gap-1">
@@ -114,25 +110,20 @@ export function Hero() {
           ))}
         </ul>
 
-        <h1 id="hero-title" className="t-display mt-8 max-w-[14ch] text-ink sm:max-w-none">
+        <h1
+          id="hero-title"
+          className="t-display mt-8 text-ink [font-size:clamp(3.5rem,1.4rem+8.5vw,8.5rem)]"
+        >
           <span className="sr-only">
-            {hero.headlineLead} {hero.headlineVerb} {hero.headlineHighlight}
+            {hero.headlineLead} {hero.headlineHighlight}
           </span>
-          <span aria-hidden className="block">
-            {lead.map((w, i) => (
-              <Word key={w} delay={0.2 + i * 0.08}>
-                {w}
-                {i < lead.length - 1 ? " " : ""}
-              </Word>
-            ))}
-          </span>
-          <span aria-hidden className="mt-1 block">
-            <Word delay={0.4}>{hero.headlineVerb}&nbsp;</Word>
+          <span aria-hidden>
+            <Word delay={0.2}>{hero.headlineLead}&nbsp;</Word>
             <motion.span
               className="relative inline-block align-bottom"
               initial={{ opacity: 0, scale: 0.7, rotate: -4 }}
               animate={{ opacity: 1, scale: 1, rotate: -2 }}
-              transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.55 }}
+              transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.4 }}
             >
               <span className="inline-block rounded-full bg-marigold px-[0.32em] pb-[0.08em]">
                 {hero.headlineHighlight}

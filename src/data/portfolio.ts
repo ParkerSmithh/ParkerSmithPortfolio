@@ -38,9 +38,9 @@ export const site = {
 
 export const hero = {
   categories: ["Graphic Design", "Web Development", "Game Development", "Video Production"],
-  headlineLead: "Designing ideas.",
-  headlineVerb: "Building",
-  headlineHighlight: "experiences.",
+  /** Rendered as "<lead> <highlight>", with the highlight in a yellow pill. */
+  headlineLead: "Parker",
+  headlineHighlight: "Smith",
   description:
     "I'm a Creative Computing and Graphic Design student at Southern Methodist University, creating interactive digital experiences through web development, game design, graphic design, and video production.",
 };
@@ -68,12 +68,6 @@ export const education = {
   dates: "August 2024 – May 2028",
   start: "2024-08-01",
   end: "2028-05-15",
-  coursework: [
-    "Game Design",
-    "Art of 3D Modeling & Animation",
-    "Intro to Graphic Design",
-    "Digital Hybrid Media I",
-  ],
 };
 
 export const youtube = {

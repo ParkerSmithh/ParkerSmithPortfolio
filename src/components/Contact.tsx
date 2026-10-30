@@ -6,7 +6,7 @@ import { Reveal } from "./AnimatedSection";
 import { Arrow, Flower, Sparkle } from "./Decorations";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const HEADLINE = ["Let's", "build", "something", "great."];
+const HEADLINE = ["Contact", "Me"];
 
 export function Contact() {
   const { copied, copy } = useCopy();
@@ -40,12 +40,12 @@ export function Contact() {
       <Flower className="absolute right-[7%] top-32 hidden h-14 w-14 md:block" color="#f64932" />
 
       <div className="container-page">
-        <p className="t-eyebrow text-blue">Contact</p>
+        <p className="t-eyebrow text-blue">Get in touch</p>
         <h2 id="contact-title" className="t-display mt-5 max-w-5xl">
           {HEADLINE.map((w, i) => (
             <span key={w} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
               <motion.span
-                className={`inline-block ${w === "great." ? "rounded-full bg-sky-tint px-[0.28em] text-blue" : ""}`}
+                className={`inline-block ${w === "Me" ? "rounded-full bg-sky-tint px-[0.28em] text-blue" : ""}`}
                 initial={{ y: "105%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "0px 0px -10% 0px" }}
