@@ -1,0 +1,5 @@
+# Cloudflare Pages project config. Deploy with `npm run deploy`
+# or connect the Git repo in the Cloudflare dashboard (build: `npm run build`, output: `dist`).
+name = "parker-smith-portfolio"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-10-01"

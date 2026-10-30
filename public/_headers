@@ -1,0 +1,12 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://videodelivery.net https://*.cloudflarestream.com; frame-src https://iframe.videodelivery.net https://*.cloudflarestream.com; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/resume.pdf
+  Content-Disposition: attachment; filename="Parker-Smith-Resume.pdf"
+  Cache-Control: public, max-age=3600
