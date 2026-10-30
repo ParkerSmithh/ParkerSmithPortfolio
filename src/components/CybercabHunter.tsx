@@ -1,10 +1,7 @@
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import { ArrowUpRight, BarChart3, Car, Code2, Film, ImageIcon, Lock } from "lucide-react";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { ArrowUpRight, BarChart3, Car, Code2, Film } from "lucide-react";
 import { cybercab } from "../data/portfolio";
-import { cybercabScreens, type Screenshot } from "../data/projects";
-import { asset } from "../lib/asset";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
+import { CybercabTour } from "./CybercabTour";
 
 const CONTRIB_ICONS = { code: Code2, film: Film, chart: BarChart3, car: Car } as const;
 const FEATURE_TONES: Record<string, { card: string; num: string; body: string }> = {
@@ -15,11 +12,6 @@ const FEATURE_TONES: Record<string, { card: string; num: string; body: string }>
 };
 
 export function CybercabHunter() {
-  const stageRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: stageRef, offset: ["start end", "end start"] });
-  const desktopY = useTransform(scrollYProgress, [0, 1], [24, -24]);
-  const phoneY = useTransform(scrollYProgress, [0, 1], [120, -80]);
-
   return (
     <section id="cybercab" aria-labelledby="cybercab-title" className="py-20 md:py-28">
       <div className="container-page">
@@ -48,19 +40,14 @@ export function CybercabHunter() {
           </Reveal>
         </div>
 
-        {/* Screenshot stage */}
-        <div ref={stageRef} className="relative mt-10 md:mt-14 md:pb-24">
-          <motion.div style={{ y: desktopY }} className="relative md:mr-24 lg:mr-40">
-            <BrowserShowcase />
-          </motion.div>
-          <motion.div
-            style={{ y: phoneY }}
-            className="absolute bottom-0 right-0 hidden w-[180px] md:block lg:w-[220px]"
-          >
-            <PhoneFrame shot={cybercabScreens.mobile} />
-          </motion.div>
-        </div>
+      </div>
 
+      {/* Screenshot tour — full-bleed so the slides can travel edge to edge */}
+      <div className="mt-10 md:mt-14">
+        <CybercabTour />
+      </div>
+
+      <div className="container-page">
         {/* Features */}
         <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4" stagger={0.08}>
           {cybercab.features.map((f, i) => {
@@ -118,105 +105,5 @@ export function CybercabHunter() {
         </div>
       </div>
     </section>
-  );
-}
-
-function BrowserShowcase() {
-  const shots = cybercabScreens.desktop;
-  const [active, setActive] = useState(0);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const shot = shots[active];
-
-  function onKey(e: KeyboardEvent<HTMLDivElement>) {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    e.preventDefault();
-    const next = (active + (e.key === "ArrowRight" ? 1 : shots.length - 1)) % shots.length;
-    setActive(next);
-    tabRefs.current[next]?.focus();
-  }
-
-  return (
-    <div className="overflow-hidden rounded-card border border-hairline bg-white shadow-mockup">
-      <div className="flex items-center gap-3 border-b border-hairline bg-[#fbfaf9] px-3 py-2.5 sm:px-4">
-        <div className="hidden gap-1.5 sm:flex" aria-hidden>
-          <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-          <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-          <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        </div>
-        <div className="flex min-w-0 flex-1 items-center gap-1.5 rounded-button bg-paper px-3 py-1.5 text-xs text-graphite sm:mx-6">
-          <Lock className="h-3 w-3 shrink-0" aria-hidden />
-          <span className="truncate">{cybercab.displayUrl}</span>
-        </div>
-        <div role="tablist" aria-label="Cybercab Hunter screenshots" className="flex gap-0.5" onKeyDown={onKey}>
-          {shots.map((s, i) => (
-            <button
-              key={s.id}
-              ref={(el) => (tabRefs.current[i] = el)}
-              role="tab"
-              type="button"
-              id={`cc-tab-${s.id}`}
-              aria-selected={i === active}
-              aria-controls="cc-panel"
-              tabIndex={i === active ? 0 : -1}
-              onClick={() => setActive(i)}
-              className={`rounded-button px-2.5 py-1.5 text-xs font-medium transition-colors duration-200 ${
-                i === active ? "bg-ink text-white" : "text-graphite hover:bg-black/5"
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div
-        id="cc-panel"
-        role="tabpanel"
-        aria-labelledby={`cc-tab-${shot.id}`}
-        className="relative aspect-[16/10] overflow-hidden bg-paper"
-      >
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
-            key={shot.id}
-            className="absolute inset-0"
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <ShotImage shot={shot} />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-function PhoneFrame({ shot }: { shot: Screenshot }) {
-  return (
-    <div className="rounded-[34px] bg-ink p-2 shadow-mockup">
-      <div className="relative aspect-[9/19.5] overflow-hidden rounded-[26px] bg-paper">
-        <ShotImage shot={shot} compact />
-        <span aria-hidden className="absolute left-1/2 top-2 h-5 w-16 -translate-x-1/2 rounded-full bg-ink" />
-      </div>
-    </div>
-  );
-}
-
-function ShotImage({ shot, compact = false }: { shot: Screenshot; compact?: boolean }) {
-  if (shot.src) {
-    return <img src={asset(shot.src)} alt={shot.alt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />;
-  }
-  return (
-    <div className="ruled flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center" role="img" aria-label={`${shot.alt} (screenshot coming soon)`}>
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-stone shadow-[0_0_0_1px_rgba(0,0,0,0.08)]">
-        <ImageIcon className="h-5 w-5" aria-hidden />
-      </span>
-      <p className={`font-semibold text-ink ${compact ? "text-xs" : "text-sm md:text-base"}`}>{shot.label} screenshot</p>
-      {!compact && (
-        <p className="text-xs text-stone">
-          Add to <code className="rounded-small bg-white px-1 py-0.5">data/projects.ts</code>
-        </p>
-      )}
-    </div>
   );
 }

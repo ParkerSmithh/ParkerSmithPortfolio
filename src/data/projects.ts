@@ -45,7 +45,7 @@ export const projectCards: ProjectCard[] = [
     category: "Web Development",
     description:
       "Created an interactive website for tracking Tesla Cybercab vehicles, reported sightings, and user-submitted ride statistics.",
-    image: "",
+    image: "/images/cybercabhunter/01-home.webp",
     imageAlt: "Cybercab Hunter website homepage",
     accent: "midnight",
   },
@@ -99,14 +99,62 @@ export const fortniteGames: FortniteGame[] = [
   },
 ];
 
-export type Screenshot = { id: string; label: string; src?: string; alt: string };
-
-/** Cybercab Hunter screenshots. Recommended: desktop 2880×1800 (16:10), mobile 1170×2532. Save as .webp. */
-export const cybercabScreens = {
-  desktop: [
-    { id: "home", label: "Homepage", src: "", alt: "Cybercab Hunter homepage with live fleet map" },
-    { id: "dashboard", label: "Dashboard", src: "", alt: "Cybercab Hunter dashboard with ride statistics" },
-    { id: "vehicles", label: "Vehicles", src: "", alt: "Cybercab Hunter known vehicle registry" },
-  ] as Screenshot[],
-  mobile: { id: "mobile", label: "Mobile", src: "", alt: "Cybercab Hunter on a phone" } as Screenshot,
+export type TourShot = {
+  id: string;
+  /** Short label for the step buttons. */
+  label: string;
+  title: string;
+  caption: string;
+  /** Path under /public. Use the same order as the live site's homepage. */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
 };
+
+/** Cybercab Hunter screenshot tour, in the order the sections appear on cybercabhunter.com. */
+export const cybercabTour: TourShot[] = [
+  {
+    id: "home",
+    label: "Home",
+    title: "Track the future of autonomy",
+    caption: "The landing hero: crowdsourced sightings and live stats for Tesla's autonomous Cybercab fleet in Austin.",
+    src: "/images/cybercabhunter/01-home.webp",
+    alt: "Cybercab Hunter homepage hero reading 'Track the future of autonomy' beside a gold Cybercab",
+    width: 2400,
+    height: 1181,
+  },
+  {
+    id: "live",
+    label: "Live stats",
+    title: "Live fleet stats",
+    caption:
+      "Registry, ride, and sighting counts, a live service-hours tracker, and a daily recap of new Cybercabs, DMV additions, sightings, and detections.",
+    src: "/images/cybercabhunter/02-live-stats.webp",
+    alt: "Live stats panel with registered Cybercabs, total rides, sightings, a service-day timeline, and the Cybercab Daily summary",
+    width: 2400,
+    height: 880,
+  },
+  {
+    id: "growth",
+    label: "Fleet growth",
+    title: "Austin service zone & fleet growth",
+    caption:
+      "A minimap of the published Austin service zone next to a chart of Cybercabs documented in the registry over time — with a timelapse.",
+    src: "/images/cybercabhunter/03-fleet-growth.webp",
+    alt: "Austin service-zone minimap beside a Cybercab fleet growth chart with daily additions",
+    width: 2400,
+    height: 938,
+  },
+  {
+    id: "dmv",
+    label: "DMV data",
+    title: "Texas DMV registrations",
+    caption:
+      "Every automated vehicle Tesla lists with the state, charted by date and split between Cybercab and Model Y.",
+    src: "/images/cybercabhunter/04-dmv-registrations.webp",
+    alt: "Texas DMV registrations chart comparing Cybercab and Model Y automated-vehicle registrations over time",
+    width: 2400,
+    height: 1021,
+  },
+];

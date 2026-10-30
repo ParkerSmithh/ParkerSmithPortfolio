@@ -17,7 +17,7 @@ All content lives in `src/data/`. You don't need to touch the components.
 |---|---|
 | `src/data/portfolio.ts` | Contact details, hero copy, about/education, YouTube stats, Fortnite stats, Cybercab Hunter copy, nav. Also optional LinkedIn/GitHub links (empty = hidden). |
 | `src/data/videos.ts` | The 7 Cloudflare Stream video slots: 5 YouTube + 2 Fortnite. |
-| `src/data/projects.ts` | Project overview thumbnails, the two featured Fortnite games, and the Cybercab Hunter screenshots. |
+| `src/data/projects.ts` | Project overview thumbnails, the two featured Fortnite games, and the Cybercab Hunter screenshot tour. |
 | `src/data/skills.ts` | The six skill cards. |
 | `public/resume.pdf` | The downloadable resume. Replace this file to update it. |
 
@@ -30,8 +30,7 @@ Put images in `public/images/{youtube,fortnite,cybercabhunter}/`, preferably as 
 Recommended sizes:
 
 - Video and game thumbnails: 1920×1080 (16:9).
-- Cybercab Hunter desktop screenshots: 2880×1800 (16:10).
-- Cybercab Hunter mobile screenshot: 1170×2532.
+- Cybercab Hunter tour screenshots: wide desktop captures, about 2400px across. Add or reorder them in `cybercabTour` in `src/data/projects.ts`; the list follows the order of the live site's homepage.
 
 ## Adding your 7 videos (Cloudflare Stream)
 
