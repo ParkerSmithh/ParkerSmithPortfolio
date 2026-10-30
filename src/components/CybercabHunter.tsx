@@ -3,6 +3,7 @@ import { ArrowUpRight, BarChart3, Car, Code2, Film, ImageIcon, Lock } from "luci
 import { useRef, useState, type KeyboardEvent } from "react";
 import { cybercab } from "../data/portfolio";
 import { cybercabScreens, type Screenshot } from "../data/projects";
+import { asset } from "../lib/asset";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 
 const CONTRIB_ICONS = { code: Code2, film: Film, chart: BarChart3, car: Car } as const;
@@ -203,7 +204,7 @@ function PhoneFrame({ shot }: { shot: Screenshot }) {
 
 function ShotImage({ shot, compact = false }: { shot: Screenshot; compact?: boolean }) {
   if (shot.src) {
-    return <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />;
+    return <img src={asset(shot.src)} alt={shot.alt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />;
   }
   return (
     <div className="ruled flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center" role="img" aria-label={`${shot.alt} (screenshot coming soon)`}>

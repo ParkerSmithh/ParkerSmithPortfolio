@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowDownRight } from "lucide-react";
+import { asset } from "../lib/asset";
 import { projectCards, type ProjectCard } from "../data/projects";
 import { SectionHeading } from "./AnimatedSection";
 import { projectArt } from "./ProjectArt";
@@ -34,7 +35,7 @@ function Card({ card, index }: { card: ProjectCard; index: number }) {
         <div className={`relative overflow-hidden ${large ? "aspect-[4/3] lg:aspect-auto lg:flex-1" : "aspect-[16/9]"}`}>
           {card.image ? (
             <img
-              src={card.image}
+              src={asset(card.image)}
               alt={card.imageAlt}
               loading="lazy"
               decoding="async"

@@ -1,6 +1,6 @@
 # Parker Smith — Portfolio
 
-Single-page portfolio built with React, TypeScript, Vite, Tailwind CSS v4, Motion for React and Lucide. It's hosted on Cloudflare Pages, and its videos play from Cloudflare Stream. The visual system follows [DESIGN.md](DESIGN.md).
+Single-page portfolio built with React, TypeScript, Vite, Tailwind CSS v4, Motion for React and Lucide. It's hosted on GitHub Pages, and its videos play from Cloudflare Stream. The visual system follows [DESIGN.md](DESIGN.md).
 
 ```bash
 npm install
@@ -47,22 +47,23 @@ Recommended sizes:
 
 The site only embeds Stream's public player by UID. No API token is used or needed in the frontend, and there's no upload endpoint. If you add an admin upload page later, put it behind authentication and call the Stream API from a server-side function using a secret.
 
-## Deploying to Cloudflare Pages
+## Deploying (GitHub Pages)
 
-**Option A: Git (recommended).** Push this folder to a GitHub repo. In Cloudflare, go to **Workers & Pages → Create → Pages → Connect to Git** and use these settings:
+The site is live at **https://parkersmithh.github.io/ParkerSmithPortfolio/**.
 
-- Build command: `npm run build`
-- Output directory: `dist`
-- Environment variable: `NODE_VERSION = 20` (or newer)
+Every push to `main` builds and deploys it automatically through `.github/workflows/deploy.yml`. You can follow each run in the repo's **Actions** tab.
 
-**Option B: Direct upload.** Run `npx wrangler login` once, then `npm run deploy`.
+**One-time setup:** in the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
 
-`public/_headers` sets the security headers, caching, and the resume's download filename. Its Content-Security-Policy allows Stream iframes and thumbnails. If you add other external services, update it there.
+**Paths.** Because GitHub Pages serves this repo under `/ParkerSmithPortfolio/`, `vite.config.ts` sets that as the base path. Keep writing image paths as `/images/...` in the data files; they're prefixed automatically.
 
-After deploying, set your real domain in **two places** so link previews resolve:
+**Using a custom domain instead:**
 
-- In `index.html`, change `og:image` and `twitter:image` to the absolute URL, e.g. `https://yourdomain.com/og-image.png`.
-- In `src/data/portfolio.ts`, set `site.url`.
+1. Add the domain in **Settings → Pages**.
+2. Set `BASE_PATH: /` as an `env` on the build step in the workflow.
+3. Update the absolute URLs in `index.html` (`og:url`, `og:image`, `twitter:image`) and `site.url` in `src/data/portfolio.ts`.
+
+The Content-Security-Policy is a `<meta>` tag in `index.html` and allows Cloudflare Stream iframes and thumbnails. If you embed other external services, add them there.
 
 ## Privacy
 

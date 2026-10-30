@@ -1,3 +1,5 @@
+import { asset } from "../lib/asset";
+
 /**
  * Central portfolio content. Every fact here comes from "Resume - Parker Smith.pdf".
  * Edit this file to update copy — components only read from it.
@@ -17,7 +19,7 @@ export const contact = {
 
 /** Swap this file in /public to replace the resume (e.g. a public-facing version without the address). */
 export const resume = {
-  href: "/resume.pdf",
+  href: asset("/resume.pdf"),
   downloadName: "Parker-Smith-Resume.pdf",
 };
 
@@ -28,8 +30,8 @@ export const socials = {
 };
 
 export const site = {
-  /** Set to the deployed origin (e.g. "https://parkersmith.dev") so share images resolve absolutely. */
-  url: "",
+  /** Public URL of the deployed site. */
+  url: "https://parkersmithh.github.io/ParkerSmithPortfolio/",
   title: "Parker Smith | Creative Computing & Graphic Design Portfolio",
   focus: "Creative Computing & Graphic Design",
 };

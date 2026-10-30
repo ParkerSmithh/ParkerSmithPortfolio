@@ -1,3 +1,5 @@
+import { asset } from "../lib/asset";
+
 /**
  * All seven Cloudflare Stream video slots (5 YouTube + 2 Fortnite).
  *
@@ -116,7 +118,7 @@ export function streamThumbnail(uid: string) {
 }
 
 export function thumbnailFor(video: VideoEntry): string | undefined {
-  if (video.thumbnail) return video.thumbnail;
+  if (video.thumbnail) return asset(video.thumbnail);
   if (video.streamUid) return streamThumbnail(video.streamUid);
   return undefined;
 }
