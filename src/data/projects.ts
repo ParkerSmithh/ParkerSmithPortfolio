@@ -34,8 +34,8 @@ export const projectCards: ProjectCard[] = [
     category: "Game Development",
     description:
       "Designed, developed, published, and promoted interactive Fortnite games using Unreal Editor for Fortnite.",
-    image: "",
-    imageAlt: "Preview of a Fortnite island built in UEFN",
+    image: "/images/fortnite/uefn-card.webp",
+    imageAlt: "Unreal Editor for Fortnite and Fortnite title cards over a wall of Fortnite island screenshots",
     accent: "marigold",
   },
   {
