@@ -25,7 +25,6 @@ export function YouTubeShowcase() {
                   <Squiggle className="ml-3 inline-block h-5 w-20 align-middle md:h-6 md:w-24" />
                 </>
               }
-              intro={`${youtube.content}, recorded, edited, and packaged end to end — from capture in OBS to the thumbnail that earns the click.`}
             />
           </div>
           <Stagger as="ul" className="grid gap-3 lg:col-span-5" stagger={0.08}>
