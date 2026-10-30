@@ -3,14 +3,19 @@ import { useState } from "react";
 import { thumbnailFor, type VideoEntry } from "../data/videos";
 import { useVideoPlayer } from "./VideoPlayerProvider";
 
-/** 16:9 video tile. Clickable when a Stream UID exists; otherwise a labelled placeholder. */
+/**
+ * 16:9 video tile. Clickable when a Stream UID exists; otherwise a labelled placeholder.
+ * `compact` lays the thumbnail beside the text, for a stacked list next to the featured video.
+ */
 export function VideoCard({
   video,
   featured = false,
+  compact = false,
   index,
 }: {
   video: VideoEntry;
   featured?: boolean;
+  compact?: boolean;
   index: number;
 }) {
   const { open } = useVideoPlayer();
@@ -19,7 +24,7 @@ export function VideoCard({
   const playable = Boolean(video.streamUid);
 
   const media = (
-    <div className="relative aspect-video overflow-hidden rounded-card bg-midnight">
+    <div className={`relative aspect-video overflow-hidden rounded-card bg-midnight ${compact ? "w-[44%] shrink-0" : ""}`}>
       {thumb ? (
         <img
           src={thumb}
@@ -37,20 +42,24 @@ export function VideoCard({
       <div className="absolute inset-0 flex items-center justify-center">
         <span
           className={`flex items-center justify-center rounded-full transition-all duration-300 ${
-            featured ? "h-20 w-20" : "h-14 w-14"
+            featured ? "h-20 w-20" : compact ? "h-10 w-10" : "h-14 w-14"
           } ${
             playable
               ? "bg-white text-ink shadow-mockup group-hover:scale-110 group-hover:bg-blue group-hover:text-white"
               : "bg-white/15 text-white/80"
           }`}
         >
-          <Play className={featured ? "ml-1 h-8 w-8" : "ml-0.5 h-6 w-6"} fill="currentColor" aria-hidden />
+          <Play className={featured ? "ml-1 h-8 w-8" : compact ? "ml-0.5 h-4 w-4" : "ml-0.5 h-6 w-6"} fill="currentColor" aria-hidden />
         </span>
       </div>
 
-      <div className="absolute left-3 top-3 flex gap-1.5">
-        <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>
-        {!playable && <span className="pill bg-marigold text-xs text-ink">Awaiting upload</span>}
+      <div className={`absolute flex gap-1.5 ${compact ? "left-2 top-2" : "left-3 top-3"}`}>
+        {!compact && <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>}
+        {!playable && (
+          <span className={`pill bg-marigold text-ink ${compact ? "px-2 py-0.5 text-[0.6875rem]" : "text-xs"}`}>
+            Awaiting upload
+          </span>
+        )}
       </div>
       {video.duration && (
         <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-small bg-black/75 px-1.5 py-0.5 text-xs font-medium text-white">
@@ -62,12 +71,13 @@ export function VideoCard({
   );
 
   const body = (
-    <div className="mt-4">
-      <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} text-ink`}>
+    <div className={compact ? "min-w-0 flex-1" : "mt-4"}>
+      {compact && <p className="t-eyebrow text-stone">{video.category}</p>}
+      <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} ${compact ? "mt-1 leading-snug" : ""} text-ink`}>
         {video.title}
       </h4>
       <p className={`mt-1 text-graphite ${featured ? "text-base" : "text-sm"}`}>{video.description}</p>
-      {video.software && (
+      {video.software && !compact && (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Software used">
           {video.software.map((s) => (
             <li key={s} className="pill border border-hairline bg-white px-2.5 py-0.5 text-xs text-graphite">
@@ -81,7 +91,10 @@ export function VideoCard({
 
   if (!playable) {
     return (
-      <article className="group h-full" aria-label={`${video.title} (video coming soon)`}>
+      <article
+        className={`group h-full ${compact ? "flex items-center gap-4" : ""}`}
+        aria-label={`${video.title} (video coming soon)`}
+      >
         {media}
         {body}
       </article>
@@ -93,7 +106,7 @@ export function VideoCard({
       <button
         type="button"
         onClick={() => open(video)}
-        className="group block w-full rounded-card text-left"
+        className={`group w-full rounded-card text-left ${compact ? "flex items-center gap-4" : "block"}`}
         aria-label={`Play video: ${video.title}`}
       >
         {media}

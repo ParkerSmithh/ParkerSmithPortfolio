@@ -117,37 +117,12 @@ export const cybercab = {
   displayUrl: "cybercabhunter.com",
   description:
     "Built a website that tracks Tesla Cybercab autonomous vehicles, including known Cybercabs, reported camera sightings, and user-submitted ride statistics.",
-  contributions: [
-    {
-      title: "Website Development",
-      body: "Developed the website using Claude Code, an AI coding assistant.",
-      icon: "code",
-    },
-    {
-      title: "Animated Assets",
-      body: "Created animated video assets using Google Gemini.",
-      icon: "film",
-    },
-    {
-      title: "Ride Statistics",
-      body: "Built functionality for users to submit and display Cybercab ride statistics.",
-      icon: "chart",
-    },
-    {
-      title: "Vehicle Tracking",
-      body: "Developed pages for tracking known Cybercabs and reported sightings.",
-      icon: "car",
-    },
-  ] as const,
   features: [
     { title: "Cybercab Vehicle Tracking", body: "A registry of known Cybercabs, each with its own record page.", accent: "marigold" },
     { title: "Reported Sightings", body: "Camera sightings reported by the community, collected in one place.", accent: "coral" },
     { title: "User-Submitted Ride Statistics", body: "Riders submit their trips; the site turns them into shared stats.", accent: "sky" },
     { title: "Interactive Website Experience", body: "Maps, animated counters, and pages built to be explored.", accent: "midnight" },
   ] as const,
-  stack: ["Claude Code", "Google Gemini", "Cloudflare Workers", "Cloudflare D1", "Tailwind CSS", "MapLibre GL"],
-  techNote:
-    "The site is a static frontend served by a Cloudflare Worker, with a D1 database storing vehicles, sightings, and ride submissions. It was built through AI-assisted development with Claude Code — I drove what the site does and how it looks, working with Claude Code to write and refine the code rather than hand-writing every line.",
 };
 
 export const nav = [

@@ -16,7 +16,7 @@ All content lives in `src/data/`. You don't need to touch the components.
 | File | What it controls |
 |---|---|
 | `src/data/portfolio.ts` | Contact details, hero copy, about/education, YouTube stats, Fortnite stats, Cybercab Hunter copy, nav. Also optional LinkedIn/GitHub links (empty = hidden). |
-| `src/data/videos.ts` | The 7 Cloudflare Stream video slots: 5 YouTube + 2 Fortnite. |
+| `src/data/videos.ts` | The 6 Cloudflare Stream video slots: 4 YouTube + 2 Fortnite. |
 | `src/data/projects.ts` | Project overview thumbnails, the two featured Fortnite games, and the Cybercab Hunter screenshot tour. |
 | `src/data/skills.ts` | The six skill cards. |
 | `public/resume.pdf` | The downloadable resume. Replace this file to update it. |
@@ -32,12 +32,12 @@ Recommended sizes:
 - Video and game thumbnails: 1920×1080 (16:9).
 - Cybercab Hunter tour screenshots: wide desktop captures, about 2400px across. Add or reorder them in `cybercabTour` in `src/data/projects.ts`; the list follows the order of the live site's homepage.
 
-## Adding your 7 videos (Cloudflare Stream)
+## Adding your 6 videos (Cloudflare Stream)
 
 1. In the Cloudflare dashboard, go to **Stream → Upload** and upload the video file. Keep raw videos out of this repo; `.gitignore` already blocks `.mp4` and `.mov` files.
 2. When processing finishes, open the video and copy its **Video ID** (a 32-character UID).
 3. Paste it into `streamUid` for the right slot in `src/data/videos.ts`:
-   - `youtubeVideos[0]` is the large featured video. `[1]`–`[4]` are the four smaller cards.
+   - `youtubeVideos[0]` is the large featured video. `[1]`–`[3]` are the three smaller cards stacked beside it.
    - `fortniteVideos["game-1"]` and `["game-2"]` are the two featured Fortnite games.
 4. Replace the placeholder `title` / `description`, then delete `placeholder: true`.
 5. Optional: set `thumbnail` to a custom image. Without one, Cloudflare's auto-generated thumbnail is used.

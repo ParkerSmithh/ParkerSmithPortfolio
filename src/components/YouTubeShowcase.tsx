@@ -74,10 +74,10 @@ export function YouTubeShowcase() {
             <Reveal className="lg:col-span-7">
               <VideoCard video={featured} featured index={0} />
             </Reveal>
-            <Stagger as="ul" className="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:col-span-5" stagger={0.08}>
+            <Stagger as="ul" className="grid content-start gap-5 lg:col-span-5" stagger={0.08}>
               {rest.map((v, i) => (
                 <StaggerItem as="li" key={v.id}>
-                  <VideoCard video={v} index={i + 1} />
+                  <VideoCard video={v} index={i + 1} compact />
                 </StaggerItem>
               ))}
             </Stagger>

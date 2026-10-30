@@ -1,7 +1,7 @@
 import { asset } from "../lib/asset";
 
 /**
- * All seven Cloudflare Stream video slots (5 YouTube + 2 Fortnite).
+ * All six Cloudflare Stream video slots (4 YouTube + 2 Fortnite).
  *
  * To add a video:
  *  1. Upload it in the Cloudflare dashboard → Stream → Upload.
@@ -69,15 +69,6 @@ export const youtubeVideos: VideoEntry[] = [
     category: "Minecraft",
     streamUid: "",
     software: ["Premiere Pro", "Photoshop"],
-    placeholder: true,
-  },
-  {
-    id: "yt-5",
-    title: "Short — Title Coming Soon",
-    description: "Placeholder: add a one-line description of this video.",
-    category: "Short",
-    streamUid: "",
-    software: ["Premiere Pro"],
     placeholder: true,
   },
 ];

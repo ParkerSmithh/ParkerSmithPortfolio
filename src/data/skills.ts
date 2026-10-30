@@ -27,13 +27,6 @@ export const skills: SkillGroup[] = [
     items: ["Unreal Engine", "Unreal Editor for Fortnite (UEFN)"],
   },
   {
-    id: "programming",
-    title: "Programming",
-    icon: "code",
-    tone: "white",
-    items: ["Java", "Processing"],
-  },
-  {
     id: "3d",
     title: "3D Design",
     icon: "box",
@@ -46,12 +39,5 @@ export const skills: SkillGroup[] = [
     icon: "sparkles",
     tone: "midnight",
     items: ["Claude Code", "ChatGPT"],
-  },
-  {
-    id: "video",
-    title: "Video Production",
-    icon: "video",
-    tone: "white",
-    items: ["OBS Studio"],
   },
 ];

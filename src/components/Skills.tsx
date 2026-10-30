@@ -62,9 +62,9 @@ export function Skills() {
           id="skills-title"
           eyebrow="Skills & tools"
           title="The toolkit."
-          intro="The software I use across design, games, code, 3D, AI, and video."
+          intro="The software I use across design, games, 3D, and AI."
         />
-        <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 md:gap-4" stagger={0.07}>
+        <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4" stagger={0.07}>
           {skills.map((g) => (
             <StaggerItem as="li" key={g.id}>
               <SkillCard group={g} />

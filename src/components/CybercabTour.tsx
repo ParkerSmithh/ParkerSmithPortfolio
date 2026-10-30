@@ -32,13 +32,15 @@ function useMediaQuery(query: string) {
 
 /**
  * Screenshot tour of Cybercab Hunter.
- * Desktop: the section pins while normal vertical scrolling slides the screenshots sideways.
- * Small screens / reduced motion: a native swipeable carousel.
+ * Tablet and up: the section pins while normal vertical scrolling slides the screenshots sideways.
+ * The movement follows the visitor's own scrolling, so it stays on under reduced motion —
+ * only the decorative tilt, zoom and spring easing are dropped.
+ * Phones: a native swipeable carousel.
  */
 export function CybercabTour() {
-  const wide = useMediaQuery("(min-width: 1024px)");
-  const reduce = useReducedMotion();
-  return wide && !reduce ? <PinnedTour /> : <SwipeTour />;
+  const wide = useMediaQuery("(min-width: 768px)");
+  const reduce = useReducedMotion() ?? false;
+  return wide ? <PinnedTour reduce={reduce} /> : <SwipeTour />;
 }
 
 function BrowserFrame({ shot, eager = false }: { shot: TourShot; eager?: boolean }) {
@@ -73,7 +75,7 @@ function BrowserFrame({ shot, eager = false }: { shot: TourShot; eager?: boolean
 
 /* ---------- Desktop: pinned horizontal scroll ---------- */
 
-function PinnedTour() {
+function PinnedTour({ reduce }: { reduce: boolean }) {
   const n = cybercabTour.length;
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRef = useRef<HTMLLIElement>(null);
@@ -81,7 +83,8 @@ function PinnedTour() {
   const [active, setActive] = useState(0);
 
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start 64px", "end end"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.0005 });
+  const smooth = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.0005 });
+  const progress = reduce ? scrollYProgress : smooth;
   const x = useTransform([progress, distance] as MotionValue<number>[], ([p, d]: number[]) => -p * d);
 
   // Total sideways travel = (slides - 1) × (slide width + gap); re-measured on resize.
@@ -102,7 +105,7 @@ function PinnedTour() {
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY - 64;
     const travel = el.offsetHeight - (window.innerHeight - 64);
-    window.scrollTo({ top: top + (travel * i) / (n - 1), behavior: "smooth" });
+    window.scrollTo({ top: top + (travel * i) / (n - 1), behavior: reduce ? "auto" : "smooth" });
   }
 
   const shot = cybercabTour[active];
@@ -147,7 +150,7 @@ function PinnedTour() {
           style={{ x, gap: GAP, paddingInline: "calc((100vw - var(--slide-w)) / 2)" }}
         >
           {cybercabTour.map((s, i) => (
-            <TourSlide key={s.id} shot={s} index={i} total={n} progress={progress} measureRef={i === 0 ? slideRef : undefined} />
+            <TourSlide key={s.id} shot={s} index={i} total={n} progress={progress} still={reduce} measureRef={i === 0 ? slideRef : undefined} />
           ))}
         </motion.ul>
 
@@ -178,21 +181,24 @@ function TourSlide({
   index,
   total,
   progress,
+  still,
   measureRef,
 }: {
   shot: TourShot;
   index: number;
   total: number;
   progress: MotionValue<number>;
+  /** Reduced motion: no tilt or zoom, just a dim on the slides that aren't in focus. */
+  still: boolean;
   measureRef?: Ref<HTMLLIElement>;
 }) {
   // Each slide peaks (full size, full opacity, level) when it's centred, and recedes on either side.
   const step = 1 / (total - 1);
   const c = index * step;
   const range = [c - step, c, c + step];
-  const scale = useTransform(progress, range, [0.86, 1, 0.86]);
+  const scale = useTransform(progress, range, still ? [1, 1, 1] : [0.86, 1, 0.86]);
   const opacity = useTransform(progress, range, [0.45, 1, 0.45]);
-  const rotateY = useTransform(progress, range, [-8, 0, 8]);
+  const rotateY = useTransform(progress, range, still ? [0, 0, 0] : [-8, 0, 8]);
 
   return (
     <motion.li

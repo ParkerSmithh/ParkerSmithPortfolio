@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowUpRight, BarChart3, Car, Check, Code2, Film } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { useRef } from "react";
 import { cybercab } from "../data/portfolio";
 import { cybercabMobile } from "../data/projects";
@@ -7,7 +7,6 @@ import { asset } from "../lib/asset";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 import { CybercabTour } from "./CybercabTour";
 
-const CONTRIB_ICONS = { code: Code2, film: Film, chart: BarChart3, car: Car } as const;
 const FEATURE_TONES: Record<string, { card: string; num: string; body: string }> = {
   marigold: { card: "bg-marigold text-ink", num: "text-ink/60", body: "text-ink/80" },
   coral: { card: "bg-coral text-ink", num: "text-ink/60", body: "text-ink/85" },
@@ -71,44 +70,6 @@ export function CybercabHunter() {
             );
           })}
         </Stagger>
-
-        {/* Contributions + tech */}
-        <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <h3 className="t-heading-sm">My contributions</h3>
-            </Reveal>
-            <Stagger as="ul" className="mt-6 grid gap-3 sm:grid-cols-2" stagger={0.08}>
-              {cybercab.contributions.map((c) => {
-                const Icon = CONTRIB_ICONS[c.icon];
-                return (
-                  <StaggerItem as="li" key={c.title}>
-                    <div className="card group h-full p-5 transition-colors duration-200 hover:border-black/20">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-button bg-sky-tint text-blue transition-transform duration-300 group-hover:scale-110">
-                        <Icon className="h-5 w-5" aria-hidden />
-                      </span>
-                      <p className="mt-4 font-semibold">{c.title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-graphite">{c.body}</p>
-                    </div>
-                  </StaggerItem>
-                );
-              })}
-            </Stagger>
-          </div>
-          <Reveal className="lg:col-span-5" delay={0.1}>
-            <div className="card h-full p-6 md:p-8">
-              <h3 className="t-heading-sm">How it's built</h3>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-graphite">{cybercab.techNote}</p>
-              <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Technologies">
-                {cybercab.stack.map((s) => (
-                  <li key={s} className="pill bg-paper text-ink/80">
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
       </div>
     </section>
   );
