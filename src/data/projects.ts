@@ -158,3 +158,14 @@ export const cybercabTour: TourShot[] = [
     height: 1021,
   },
 ];
+
+/** Phone screenshot shown beside the tour. */
+export const cybercabMobile = {
+  src: "/images/cybercabhunter/05-mobile.webp",
+  alt: "Cybercab Hunter on an iPhone: the hero, live fleet stats, and a bottom tab bar for Home, Zones, Cars, Sightings, and Community",
+  width: 800,
+  height: 1739,
+  title: "Built for the phone in your pocket",
+  body: "Sightings happen on the street, so the site is designed for phones too. The layout stacks for a narrow screen, live stats stay up front, and a bottom tab bar keeps Home, Zones, Cars, Sightings, and Community one tap away.",
+  points: ["Bottom tab navigation", "Stacked, touch-friendly layout", "Same live data as desktop"],
+};

@@ -1,5 +1,9 @@
-import { ArrowUpRight, BarChart3, Car, Code2, Film } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { ArrowUpRight, BarChart3, Car, Check, Code2, Film } from "lucide-react";
+import { useRef } from "react";
 import { cybercab } from "../data/portfolio";
+import { cybercabMobile } from "../data/projects";
+import { asset } from "../lib/asset";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 import { CybercabTour } from "./CybercabTour";
 
@@ -48,6 +52,8 @@ export function CybercabHunter() {
       </div>
 
       <div className="container-page">
+        <MobileShowcase />
+
         {/* Features */}
         <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4" stagger={0.08}>
           {cybercab.features.map((f, i) => {
@@ -105,5 +111,59 @@ export function CybercabHunter() {
         </div>
       </div>
     </section>
+  );
+}
+
+function MobileShowcase() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  // The phone rises and straightens out as it scrolls into view.
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [80, 0, -60]);
+  const rotate = useTransform(scrollYProgress, [0, 0.45], [-7, 0]);
+  const m = cybercabMobile;
+
+  return (
+    <div ref={ref} className="mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-12 md:gap-12">
+      <div className="md:col-span-6 lg:col-span-5 lg:col-start-2">
+        <Reveal>
+          <p className="t-eyebrow text-blue">Mobile</p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h3 className="mt-3 text-3xl font-bold tracking-[-0.03em] md:text-[2.5rem] md:leading-[1.1]">{m.title}</h3>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mt-4 text-base leading-relaxed text-graphite">{m.body}</p>
+        </Reveal>
+        <Stagger as="ul" className="mt-6 grid gap-2.5" stagger={0.06}>
+          {m.points.map((pt) => (
+            <StaggerItem as="li" key={pt} className="flex items-center gap-3 text-[0.9375rem]">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-marigold">
+                <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
+              </span>
+              {pt}
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </div>
+
+      <div className="relative flex justify-center md:col-span-6 lg:col-span-5">
+        <div aria-hidden className="absolute top-1/2 h-[70%] w-[70%] -translate-y-1/2 rounded-full bg-marigold/25" />
+        <motion.div style={{ y, rotate }} className="relative w-[240px] sm:w-[270px] lg:w-[290px]">
+          <div className="rounded-[44px] bg-ink p-2.5 shadow-mockup ring-1 ring-black/20">
+            <div className="overflow-hidden rounded-[36px] bg-[#0a0b0d]">
+              <img
+                src={asset(m.src)}
+                alt={m.alt}
+                width={m.width}
+                height={m.height}
+                loading="lazy"
+                decoding="async"
+                className="block h-auto w-full"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   );
 }
