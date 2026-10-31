@@ -3,7 +3,7 @@ import { Check, Copy, ExternalLink, Play } from "lucide-react";
 import { useRef } from "react";
 import { fortnite } from "../data/portfolio";
 import { fortniteGames, type FortniteGame } from "../data/projects";
-import { thumbnailFor } from "../data/videos";
+import { isPlayable, thumbnailFor } from "../data/videos";
 import { asset } from "../lib/asset";
 import { useCopy } from "../lib/useCopy";
 import { ClipReveal, DrawLine, Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
@@ -77,7 +77,7 @@ function GameCaseStudy({ game, index }: { game: FortniteGame; index: number }) {
   const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
   const reversed = index % 2 === 1;
   const thumb = asset(game.thumbnail) || thumbnailFor(game.video);
-  const playable = Boolean(game.video.streamUid);
+  const playable = isPlayable(game.video);
   const titleId = `${game.id}-title`;
 
   return (

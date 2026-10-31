@@ -1,15 +1,17 @@
 import { asset } from "../lib/asset";
 
 /**
- * All six Cloudflare Stream video slots (4 YouTube + 2 Fortnite).
+ * All video slots (3 YouTube + 2 Fortnite).
  *
- * To add a video:
- *  1. Upload it in the Cloudflare dashboard → Stream → Upload.
- *  2. Copy the video's UID (32-character id) into `streamUid` below.
- *  3. Optional: put a custom thumbnail in /public/images/... and set `thumbnail`.
- *     Without one, Cloudflare's auto-generated thumbnail is used.
+ * A video can come from either source:
+ *  - `src`: a direct link to an .mp4 file (e.g. a public Cloudflare R2 URL). Plays in the
+ *    browser's own player. Keep files web-sized (1080p, ~5–8 Mbps) so they don't buffer.
+ *  - `streamUid`: a Cloudflare Stream video ID. Stream adapts quality to each viewer's connection.
+ *    Upload in the Cloudflare dashboard → Stream → Upload, then copy the video's UID.
  *
- * A slot with an empty `streamUid` renders as a polished "coming soon" placeholder, never a broken embed.
+ * Add a `thumbnail` (path under /public) for the card image. Without one, Stream videos use
+ * Cloudflare's auto-generated thumbnail and file videos use designed placeholder art.
+ * A slot with neither `src` nor `streamUid` renders as a "coming soon" placeholder, never a broken player.
  */
 
 export type VideoEntry = {
@@ -19,7 +21,9 @@ export type VideoEntry = {
   category: string;
   /** Path under /public, e.g. "/images/youtube/video-1.webp". Optional. */
   thumbnail?: string;
-  /** Cloudflare Stream video UID. Empty = placeholder slot. */
+  /** Direct video file URL (.mp4). Takes priority over `streamUid`. */
+  src?: string;
+  /** Cloudflare Stream video UID. */
   streamUid: string;
   /** e.g. "8:42" */
   duration?: string;
@@ -36,40 +40,37 @@ export const streamCustomerCode = "";
 
 export const youtubeVideos: VideoEntry[] = [
   {
-    id: "yt-1",
-    title: "Featured Video — Title Coming Soon",
-    description: "Placeholder: add a one-line description of this video.",
-    category: "Fortnite",
+    id: "yt-rtx-5070-ti",
+    title: "RTX 5070 Ti Budget PC Build",
+    description: "",
+    category: "PC Build",
+    thumbnail: "/images/youtube/rtx-5070-ti.webp",
+    src: "https://pub-f12571d75a42423aa04ef727591d8013.r2.dev/RTX%205070%20Ti%20Budget%20PC%20Build.mp4",
     streamUid: "",
-    software: ["Premiere Pro", "OBS Studio", "Photoshop"],
-    placeholder: true,
-  },
-  {
-    id: "yt-2",
-    title: "Video 2 — Title Coming Soon",
-    description: "Placeholder: add a one-line description of this video.",
-    category: "Fortnite",
-    streamUid: "",
-    software: ["Premiere Pro", "OBS Studio"],
-    placeholder: true,
-  },
-  {
-    id: "yt-3",
-    title: "Video 3 — Title Coming Soon",
-    description: "Placeholder: add a one-line description of this video.",
-    category: "Fortnite",
-    streamUid: "",
-    software: ["Premiere Pro", "OBS Studio"],
-    placeholder: true,
-  },
-  {
-    id: "yt-4",
-    title: "Video 4 — Title Coming Soon",
-    description: "Placeholder: add a one-line description of this video.",
-    category: "Fortnite",
-    streamUid: "",
+    duration: "4:52",
     software: ["Premiere Pro", "Photoshop"],
-    placeholder: true,
+  },
+  {
+    id: "yt-fortnite-chapter-5",
+    title: "Fortnite Chapter 5",
+    description: "",
+    category: "Fortnite",
+    thumbnail: "/images/youtube/fortnite-chapter-5.webp",
+    src: "https://pub-f12571d75a42423aa04ef727591d8013.r2.dev/Fortnite%20Chapter%205.mp4",
+    streamUid: "",
+    duration: "2:19",
+    software: ["OBS Studio", "Premiere Pro"],
+  },
+  {
+    id: "yt-fortnite-2024",
+    title: "Fortnite 2024",
+    description: "",
+    category: "Fortnite",
+    thumbnail: "/images/youtube/fortnite-2024.webp",
+    src: "https://pub-f12571d75a42423aa04ef727591d8013.r2.dev/Fortnite2024.mp4",
+    streamUid: "",
+    duration: "3:18",
+    software: ["OBS Studio", "Premiere Pro"],
   },
 ];
 
@@ -106,6 +107,10 @@ export function streamThumbnail(uid: string) {
     ? `https://customer-${streamCustomerCode}.cloudflarestream.com/${uid}`
     : `https://videodelivery.net/${uid}`;
   return `${base}/thumbnails/thumbnail.jpg?time=2s&height=720`;
+}
+
+export function isPlayable(video: VideoEntry) {
+  return Boolean(video.src || video.streamUid);
 }
 
 export function thumbnailFor(video: VideoEntry): string | undefined {

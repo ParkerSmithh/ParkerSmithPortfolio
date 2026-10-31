@@ -1,6 +1,6 @@
 import { Clock, Play } from "lucide-react";
 import { useState } from "react";
-import { thumbnailFor, type VideoEntry } from "../data/videos";
+import { isPlayable, thumbnailFor, type VideoEntry } from "../data/videos";
 import { useVideoPlayer } from "./VideoPlayerProvider";
 
 /**
@@ -21,7 +21,7 @@ export function VideoCard({
   const { open } = useVideoPlayer();
   const [thumbFailed, setThumbFailed] = useState(false);
   const thumb = thumbFailed ? undefined : thumbnailFor(video);
-  const playable = Boolean(video.streamUid);
+  const playable = isPlayable(video);
 
   const media = (
     <div className={`relative aspect-video overflow-hidden rounded-card bg-midnight ${compact ? "w-[44%] shrink-0" : ""}`}>
@@ -76,7 +76,7 @@ export function VideoCard({
       <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} ${compact ? "mt-1 leading-snug" : ""} text-ink`}>
         {video.title}
       </h4>
-      <p className={`mt-1 text-graphite ${featured ? "text-base" : "text-sm"}`}>{video.description}</p>
+      {video.description && <p className={`mt-1 text-graphite ${featured ? "text-base" : "text-sm"}`}>{video.description}</p>}
       {video.software && !compact && (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Software used">
           {video.software.map((s) => (

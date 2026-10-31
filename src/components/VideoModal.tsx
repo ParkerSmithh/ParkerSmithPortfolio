@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Loader2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { streamIframeSrc, type VideoEntry } from "../data/videos";
+import { streamIframeSrc, thumbnailFor, type VideoEntry } from "../data/videos";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
 
@@ -27,6 +27,7 @@ function Dialog({ video, onClose, onExited }: { video: VideoEntry; onClose: () =
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
   const titleId = `${video.id}-title`;
 
   // Lock page scroll, focus the close button, trap Tab, close on Escape.
@@ -107,7 +108,35 @@ function Dialog({ video, onClose, onExited }: { video: VideoEntry; onClose: () =
         </div>
 
         <div className="relative aspect-video bg-black">
-          {video.streamUid ? (
+          {video.src ? (
+            <>
+              {!ready && !failed && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-white/70" role="status">
+                  <Loader2 className="h-8 w-8 animate-spin" aria-hidden />
+                  <span className="sr-only">Loading video</span>
+                </div>
+              )}
+              {failed ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center text-white/80">
+                  <p className="text-lg font-semibold text-white">This video couldn't load</p>
+                  <p className="text-sm">Check your connection and try again.</p>
+                </div>
+              ) : (
+                <video
+                  src={video.src}
+                  poster={thumbnailFor(video)}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  aria-label={video.title}
+                  className="absolute inset-0 h-full w-full object-contain"
+                  onCanPlay={() => setReady(true)}
+                  onError={() => setFailed(true)}
+                />
+              )}
+            </>
+          ) : video.streamUid ? (
             <>
               {!ready && (
                 <div className="absolute inset-0 flex items-center justify-center text-white/70" role="status">
@@ -127,14 +156,14 @@ function Dialog({ video, onClose, onExited }: { video: VideoEntry; onClose: () =
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center text-white/80">
               <p className="text-lg font-semibold text-white">Video coming soon</p>
-              <p className="text-sm">This slot doesn't have a Cloudflare Stream video yet.</p>
+              <p className="text-sm">This video hasn't been added yet.</p>
             </div>
           )}
         </div>
 
         {(video.description || video.software?.length) && (
           <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
-            <p className="text-sm text-graphite">{video.description}</p>
+            {video.description && <p className="text-sm text-graphite">{video.description}</p>}
             {video.software && (
               <ul className="flex flex-wrap gap-1.5" aria-label="Software used">
                 {video.software.map((s) => (

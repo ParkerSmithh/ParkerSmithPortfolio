@@ -16,7 +16,7 @@ All content lives in `src/data/`. You don't need to touch the components.
 | File | What it controls |
 |---|---|
 | `src/data/portfolio.ts` | Contact details, hero copy, about/education, YouTube stats, Fortnite stats, Cybercab Hunter copy, nav. Also optional LinkedIn/GitHub links (empty = hidden). |
-| `src/data/videos.ts` | The 6 Cloudflare Stream video slots: 4 YouTube + 2 Fortnite. |
+| `src/data/videos.ts` | The video slots: 3 YouTube + 2 Fortnite. Each plays a direct .mp4 link or a Cloudflare Stream video. |
 | `src/data/projects.ts` | Project overview thumbnails, the two featured Fortnite games, and the Cybercab Hunter screenshot tour. |
 | `src/data/skills.ts` | The six skill cards. |
 | `public/resume.pdf` | The downloadable resume. Replace this file to update it. |
@@ -32,19 +32,25 @@ Recommended sizes:
 - Video and game thumbnails: 1920×1080 (16:9).
 - Cybercab Hunter tour screenshots: wide desktop captures, about 2400px across. Add or reorder them in `cybercabTour` in `src/data/projects.ts`; the list follows the order of the live site's homepage.
 
-## Adding your 6 videos (Cloudflare Stream)
+## Adding videos
 
-1. In the Cloudflare dashboard, go to **Stream → Upload** and upload the video file. Keep raw videos out of this repo; `.gitignore` already blocks `.mp4` and `.mov` files.
-2. When processing finishes, open the video and copy its **Video ID** (a 32-character UID).
-3. Paste it into `streamUid` for the right slot in `src/data/videos.ts`:
-   - `youtubeVideos[0]` is the large featured video. `[1]`–`[3]` are the three smaller cards stacked beside it.
-   - `fortniteVideos["game-1"]` and `["game-2"]` are the two featured Fortnite games.
-4. Replace the placeholder `title` / `description`, then delete `placeholder: true`.
-5. Optional: set `thumbnail` to a custom image. Without one, Cloudflare's auto-generated thumbnail is used.
-6. Optional: if your Stream account uses a `customer-XXXX.cloudflarestream.com` subdomain, set `streamCustomerCode` in the same file.
-7. In Stream, under the video's **Settings**, make sure **Require signed URLs** is off. Otherwise, public visitors can't play it.
+Videos live in `src/data/videos.ts`. `youtubeVideos[0]` is the large featured video, and the next two are the smaller cards stacked beside it. `fortniteVideos["game-1"]` and `["game-2"]` belong to the two featured Fortnite games.
 
-The site only embeds Stream's public player by UID. No API token is used or needed in the frontend, and there's no upload endpoint. If you add an admin upload page later, put it behind authentication and call the Stream API from a server-side function using a secret.
+Each entry plays from one of two sources.
+
+**A direct .mp4 link (`src`).** This is what the YouTube videos use now, served from Cloudflare R2. Paste the file's public URL into `src` and set a `thumbnail`.
+
+- Keep files web-sized: 1080p, H.264, about 5–8 Mbps. A 4K file at 30–150 Mbps will stall on most connections.
+- Public `r2.dev` URLs are rate-limited by Cloudflare. For steady traffic, connect a custom domain to the bucket.
+
+**Cloudflare Stream (`streamUid`).** Stream re-encodes uploads and adapts quality to each viewer's connection, so it's the best option for large or 4K files.
+
+1. Upload the video in the Cloudflare dashboard under **Stream → Upload**.
+2. Copy the video's UID into `streamUid`.
+3. Under the video's **Settings**, make sure **Require signed URLs** is off.
+4. Optionally, if your account uses a `customer-XXXX.cloudflarestream.com` subdomain, set `streamCustomerCode` in `src/data/videos.ts`.
+
+The site never needs API tokens and has no upload endpoint.
 
 ## Deploying (GitHub Pages)
 
