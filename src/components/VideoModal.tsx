@@ -91,7 +91,7 @@ function Dialog({ video, onClose, onExited }: { video: VideoEntry; onClose: () =
       >
         <div className="flex items-start justify-between gap-4 border-b border-hairline px-4 py-3 sm:px-5">
           <div className="min-w-0">
-            <p className="t-eyebrow text-stone">{video.category}</p>
+            {video.category && <p className="t-eyebrow text-stone">{video.category}</p>}
             <h2 id={titleId} className="truncate text-base font-semibold sm:text-lg">
               {video.title}
             </h2>

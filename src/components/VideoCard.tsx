@@ -54,7 +54,7 @@ export function VideoCard({
       </div>
 
       <div className={`absolute flex gap-1.5 ${compact ? "left-2 top-2" : "left-3 top-3"}`}>
-        {!compact && <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>}
+        {!compact && video.category && <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>}
         {!playable && (
           <span className={`pill bg-marigold text-ink ${compact ? "px-2 py-0.5 text-[0.6875rem]" : "text-xs"}`}>
             Awaiting upload
@@ -72,7 +72,7 @@ export function VideoCard({
 
   const body = (
     <div className={compact ? "min-w-0 flex-1" : "mt-4"}>
-      {compact && <p className="t-eyebrow text-stone">{video.category}</p>}
+      {compact && video.category && <p className="t-eyebrow text-stone">{video.category}</p>}
       <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} ${compact ? "mt-1 leading-snug" : ""} text-ink`}>
         {video.title}
       </h4>
