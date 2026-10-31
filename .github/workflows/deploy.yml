@@ -30,17 +30,11 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       # While the repo's Pages source is "Deploy from a branch", GitHub also runs its own
-      # "pages build and deployment", which publishes the raw (unbuilt) files. Wait for it
-      # so this deploy of the built site lands last. A no-op once the source is "GitHub Actions".
+      # "pages build and deployment", which publishes the raw (unbuilt) files. Pages serves the
+      # most recently *created* deployment, and the deploy job creates ours as soon as it starts,
+      # so the wait has to happen here, before that job begins. A no-op once the source is
+      # "GitHub Actions".
       - name: Wait for GitHub's branch deploy
         env:
           GH_TOKEN: ${{ github.token }}
@@ -52,5 +46,13 @@ jobs:
             echo "Waiting for pages build and deployment to finish..."
             sleep 10
           done
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4

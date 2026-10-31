@@ -116,7 +116,7 @@ export const cybercab = {
   url: "https://cybercabhunter.com/",
   displayUrl: "cybercabhunter.com",
   description:
-    "Built a website that tracks Tesla Cybercab autonomous vehicles, including known Cybercabs, reported camera sightings, and user-submitted ride statistics.",
+    "Built a website with Claude Code that tracks Tesla Cybercab autonomous vehicles, including known Cybercabs, reported camera sightings, and user-submitted ride statistics.",
   features: [
     { title: "Cybercab Vehicle Tracking", body: "A registry of known Cybercabs, each with its own record page.", accent: "marigold" },
     { title: "Reported Sightings", body: "Camera sightings reported by the community, collected in one place.", accent: "coral" },

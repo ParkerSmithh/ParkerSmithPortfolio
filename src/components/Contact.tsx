@@ -40,8 +40,7 @@ export function Contact() {
       <Flower className="absolute right-[7%] top-32 hidden h-14 w-14 md:block" color="#f64932" />
 
       <div className="container-page">
-        <p className="t-eyebrow text-blue">Get in touch</p>
-        <h2 id="contact-title" className="t-display mt-5 max-w-5xl">
+        <h2 id="contact-title" className="t-display max-w-5xl">
           {HEADLINE.map((w, i) => (
             <span key={w} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
               <motion.span
@@ -61,8 +60,7 @@ export function Contact() {
         <div className="mt-10 grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-5" delay={0.2}>
             <p className="t-lead text-graphite">
-              I'm open to internships, creative collaborations, and conversations with teams working on design, games,
-              video, or interactive web. The fastest way to reach me is email.
+              I'm open to internships, creative collaborations, and conversations.
             </p>
             <p className="mt-6 inline-flex items-center gap-1.5 text-sm text-graphite">
               <MapPin className="h-4 w-4" aria-hidden />

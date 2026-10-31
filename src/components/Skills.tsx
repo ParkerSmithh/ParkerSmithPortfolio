@@ -61,8 +61,7 @@ export function Skills() {
         <SectionHeading
           id="skills-title"
           eyebrow="Skills & tools"
-          title="The toolkit."
-          intro="The software I use across design, games, 3D, and AI."
+          title="Skills"
         />
         <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4" stagger={0.07}>
           {skills.map((g) => (
