@@ -79,6 +79,14 @@ export const youtube = {
     { value: 500, suffix: "", label: "Shorts" },
   ],
   statsNote: "Figures as reported on my resume — not live channel metrics.",
+  /** Screenshot of the channel page, shown at the top of the section. */
+  channelShot: {
+    src: "/images/youtube/channel.webp",
+    alt: "The Gopex YouTube channel page: 'Epic Gaming Content' banner, pizza-slice avatar, and a row of recent Fortnite and gaming videos",
+    width: 1314,
+    height: 1021,
+    displayUrl: "youtube.com/@Gopex",
+  },
   responsibilities: [
     { title: "Video Editing", tool: "Adobe Premiere Pro", icon: "scissors" },
     { title: "Video Recording", tool: "OBS Studio", icon: "record" },

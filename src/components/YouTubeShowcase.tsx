@@ -1,7 +1,8 @@
-import { Disc, ImageIcon, Scissors } from "lucide-react";
+import { Disc, ImageIcon, Lock, Scissors } from "lucide-react";
 import { youtube } from "../data/portfolio";
 import { youtubeVideos } from "../data/videos";
-import { Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
+import { asset } from "../lib/asset";
+import { ClipReveal, Reveal, SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 import { CountUp } from "./CountUp";
 import { Squiggle } from "./Decorations";
 import { VideoCard } from "./VideoCard";
@@ -14,8 +15,8 @@ export function YouTubeShowcase() {
   return (
     <section id="youtube" aria-labelledby="youtube-title" className="relative py-20 md:py-28">
       <div className="container-page">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+          <div className="lg:col-span-5">
             <SectionHeading
               id="youtube-title"
               eyebrow="Video production"
@@ -26,25 +27,29 @@ export function YouTubeShowcase() {
                 </>
               }
             />
-          </div>
-          <Stagger as="ul" className="grid gap-3 lg:col-span-5" stagger={0.08}>
-            {youtube.responsibilities.map((r) => {
-              const Icon = RESP_ICONS[r.icon];
-              return (
-                <StaggerItem as="li" key={r.title}>
-                  <div className="card group flex items-center gap-4 p-4 transition-colors duration-200 hover:border-black/20">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-button bg-paper text-ink transition-colors duration-200 group-hover:bg-coral group-hover:text-white">
-                      <Icon className="h-5 w-5" aria-hidden />
-                    </span>
-                    <div>
-                      <p className="font-semibold">{r.title}</p>
-                      <p className="text-sm text-graphite">{r.tool}</p>
+            <Stagger as="ul" className="mt-8 grid gap-3" stagger={0.08}>
+              {youtube.responsibilities.map((r) => {
+                const Icon = RESP_ICONS[r.icon];
+                return (
+                  <StaggerItem as="li" key={r.title}>
+                    <div className="card group flex items-center gap-4 p-4 transition-colors duration-200 hover:border-black/20">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-button bg-paper text-ink transition-colors duration-200 group-hover:bg-coral group-hover:text-white">
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div>
+                        <p className="font-semibold">{r.title}</p>
+                        <p className="text-sm text-graphite">{r.tool}</p>
+                      </div>
                     </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+                  </StaggerItem>
+                );
+              })}
+            </Stagger>
+          </div>
+
+          <ClipReveal className="lg:col-span-7">
+            <ChannelShot />
+          </ClipReveal>
         </div>
 
         <Stagger as="ul" className="mt-12 grid gap-3 sm:grid-cols-3 md:gap-4" stagger={0.1}>
@@ -84,5 +89,33 @@ export function YouTubeShowcase() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ChannelShot() {
+  const shot = youtube.channelShot;
+  return (
+    <figure className="overflow-hidden rounded-card border border-hairline bg-white shadow-mockup">
+      <div className="flex items-center gap-3 border-b border-hairline bg-[#fbfaf9] px-3 py-2.5 sm:px-4" aria-hidden>
+        <div className="hidden gap-1.5 sm:flex">
+          <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+          <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+          <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        </div>
+        <div className="flex min-w-0 flex-1 items-center gap-1.5 rounded-button bg-paper px-3 py-1.5 text-xs text-graphite sm:mx-6">
+          <Lock className="h-3 w-3 shrink-0" />
+          <span className="truncate">{shot.displayUrl}</span>
+        </div>
+      </div>
+      <img
+        src={asset(shot.src)}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full"
+      />
+    </figure>
   );
 }
