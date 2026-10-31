@@ -45,22 +45,6 @@ export const hero = {
     "I'm a Creative Computing and Graphic Design student at Southern Methodist University, creating interactive digital experiences through web development, game design, graphic design, and video production.",
 };
 
-export const about = {
-  lead: "I work where design meets technology — taking an idea from a sketch to something people can click, watch, or play.",
-  paragraphs: [
-    "I'm studying Creative Computing and Graphic Design at Southern Methodist University. My work moves between disciplines: designing thumbnails and graphics in Photoshop and Illustrator, editing and recording videos for a gaming YouTube channel, building and publishing games in Unreal Editor for Fortnite, and developing an interactive website for tracking Tesla Cybercabs.",
-    "What ties it together is an interest in combining creative design with technology to make digital experiences that feel considered — and that real people actually use.",
-  ],
-  disciplines: [
-    "Graphic design",
-    "Interactive web development",
-    "Video editing & production",
-    "Game development",
-    "3D design",
-    "Programming",
-  ],
-};
-
 export const education = {
   school: "Southern Methodist University",
   location: "Dallas, Texas",
@@ -128,7 +112,7 @@ export const cybercab = {
 };
 
 export const nav = [
-  { id: "about", label: "About" },
+  { id: "about", label: "Education" },
   { id: "projects", label: "Projects" },
   { id: "youtube", label: "YouTube" },
   { id: "fortnite", label: "Fortnite" },
