@@ -48,7 +48,7 @@ export const youtubeVideos: VideoEntry[] = [
     src: "https://pub-f12571d75a42423aa04ef727591d8013.r2.dev/RTX%205070%20Ti%20Budget%20PC%20Build.mp4",
     streamUid: "",
     duration: "4:52",
-    software: ["Premiere Pro", "Photoshop"],
+    software: ["OBS Studio", "Photoshop", "Premiere Pro"],
   },
   {
     id: "yt-fortnite-chapter-5",

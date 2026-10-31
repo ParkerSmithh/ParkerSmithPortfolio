@@ -12,6 +12,7 @@ export function VideoCard({
   featured = false,
   compact = false,
   bare = false,
+  showTags = false,
   index,
 }: {
   video: VideoEntry;
@@ -19,6 +20,8 @@ export function VideoCard({
   compact?: boolean;
   /** Thumbnail only — no title, description or tags. The title stays as the accessible name. */
   bare?: boolean;
+  /** With `bare`, still list the software tags under the thumbnail. */
+  showTags?: boolean;
   index: number;
 }) {
   const { open } = useVideoPlayer();
@@ -73,22 +76,24 @@ export function VideoCard({
     </div>
   );
 
-  const body = bare ? null : (
+  const tags = video.software && (
+    <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Software used">
+      {video.software.map((s) => (
+        <li key={s} className="pill border border-hairline bg-white px-2.5 py-0.5 text-xs text-graphite">
+          {s}
+        </li>
+      ))}
+    </ul>
+  );
+
+  const body = bare ? (showTags ? tags : null) : (
     <div className={compact ? "min-w-0 flex-1" : "mt-4"}>
       {compact && video.category && <p className="t-eyebrow text-stone">{video.category}</p>}
       <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} ${compact ? "mt-1 leading-snug" : ""} text-ink`}>
         {video.title}
       </h4>
       {video.description && <p className={`mt-1 text-graphite ${featured ? "text-base" : "text-sm"}`}>{video.description}</p>}
-      {video.software && !compact && (
-        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Software used">
-          {video.software.map((s) => (
-            <li key={s} className="pill border border-hairline bg-white px-2.5 py-0.5 text-xs text-graphite">
-              {s}
-            </li>
-          ))}
-        </ul>
-      )}
+      {!compact && tags}
     </div>
   );
 
