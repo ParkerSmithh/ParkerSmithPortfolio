@@ -73,8 +73,7 @@ export function ProjectsOverview() {
           <SectionHeading
             id="projects-title"
             eyebrow="Selected work"
-            title="Three projects, three crafts."
-            intro="Video production, game development, and web development — each one shipped to a real audience."
+            title="Projects"
           />
         </div>
         <ul className="mt-12 grid gap-4 md:gap-5 lg:auto-rows-[minmax(0,1fr)] lg:grid-cols-12">

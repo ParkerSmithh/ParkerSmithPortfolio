@@ -1,4 +1,4 @@
-import { Disc, ImageIcon, Lock, Scissors } from "lucide-react";
+import { Disc, ImageIcon, Scissors } from "lucide-react";
 import { youtube } from "../data/portfolio";
 import { youtubeVideos } from "../data/videos";
 import { asset } from "../lib/asset";
@@ -66,9 +66,6 @@ export function YouTubeShowcase() {
             </StaggerItem>
           ))}
         </Stagger>
-        <Reveal>
-          <p className="mt-3 text-xs text-stone">{youtube.statsNote}</p>
-        </Reveal>
 
         <div className="mt-16 md:mt-20">
           <Reveal>
@@ -96,16 +93,10 @@ function ChannelShot() {
   const shot = youtube.channelShot;
   return (
     <figure className="overflow-hidden rounded-card border border-hairline bg-white shadow-mockup">
-      <div className="flex items-center gap-3 border-b border-hairline bg-[#fbfaf9] px-3 py-2.5 sm:px-4" aria-hidden>
-        <div className="hidden gap-1.5 sm:flex">
-          <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-          <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-          <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        </div>
-        <div className="flex min-w-0 flex-1 items-center gap-1.5 rounded-button bg-paper px-3 py-1.5 text-xs text-graphite sm:mx-6">
-          <Lock className="h-3 w-3 shrink-0" />
-          <span className="truncate">{shot.displayUrl}</span>
-        </div>
+      <div className="flex gap-1.5 border-b border-hairline bg-[#fbfaf9] px-4 py-3" aria-hidden>
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
       </div>
       <img
         src={asset(shot.src)}

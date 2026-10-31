@@ -45,6 +45,22 @@ export const hero = {
     "I'm a Creative Computing and Graphic Design student at Southern Methodist University, creating interactive digital experiences through web development, game design, graphic design, and video production.",
 };
 
+export const about = {
+  lead: "I work where design meets technology — taking an idea from a sketch to something people can click, watch, or play.",
+  paragraphs: [
+    "I'm studying Creative Computing and Graphic Design at Southern Methodist University. My work moves between disciplines: designing thumbnails and graphics in Photoshop and Illustrator, editing and recording videos for a gaming YouTube channel, building and publishing games in Unreal Editor for Fortnite, and developing an interactive website for tracking Tesla Cybercabs.",
+    "What ties it together is an interest in combining creative design with technology to make digital experiences that feel considered — and that real people actually use.",
+  ],
+  disciplines: [
+    "Graphic design",
+    "Interactive web development",
+    "Video editing & production",
+    "Game development",
+    "3D design",
+    "Programming",
+  ],
+};
+
 export const education = {
   school: "Southern Methodist University",
   location: "Dallas, Texas",
@@ -56,20 +72,18 @@ export const education = {
 
 export const youtube = {
   title: "Gaming YouTube Channel",
-  content: "Fortnite and Minecraft videos",
+  content: "Fortnite videos",
   stats: [
     { value: 33, suffix: "K", label: "Subscribers" },
     { value: 500, suffix: "", label: "Videos" },
     { value: 500, suffix: "", label: "Shorts" },
   ],
-  statsNote: "Figures as reported on my resume — not live channel metrics.",
   /** Screenshot of the channel page, shown at the top of the section. */
   channelShot: {
     src: "/images/youtube/channel.webp",
     alt: "The Gopex YouTube channel page: 'Epic Gaming Content' banner, pizza-slice avatar, and a row of recent Fortnite and gaming videos",
     width: 1314,
     height: 1021,
-    displayUrl: "youtube.com/@Gopex",
   },
   responsibilities: [
     { title: "Video Editing", tool: "Adobe Premiere Pro", icon: "scissors" },
@@ -112,7 +126,7 @@ export const cybercab = {
 };
 
 export const nav = [
-  { id: "about", label: "Education" },
+  { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "youtube", label: "YouTube" },
   { id: "fortnite", label: "Fortnite" },
