@@ -95,10 +95,10 @@ export const youtube = {
 export const fortnite = {
   title: "Fortnite Creative",
   summary:
-    "I built and published Fortnite games using Unreal Editor for Fortnite (UEFN). One of them reached about 100 concurrent players at its peak and generated revenue through Fortnite's creator ecosystem.",
+    "I built and published Fortnite games using Unreal Editor for Fortnite (UEFN). One of them reached about 1,000 concurrent players at its peak and generated revenue through Fortnite's creator ecosystem.",
   stats: [
     { value: "11", label: "Published Fortnite games" },
-    { value: "~100", label: "Peak concurrent players on one game" },
+    { value: "~1000", label: "Peak concurrent players on one game" },
     { value: "Monetized", label: "Through Fortnite's creator ecosystem" },
   ],
   responsibilities: [

@@ -29,7 +29,7 @@ export function FortniteShowcase() {
                 <div className="h-full p-6 md:p-8">
                   <p
                     className={`font-bold tracking-[-0.04em] ${
-                      s.value.length > 4 ? "text-4xl md:text-5xl" : "text-5xl md:text-7xl"
+                      s.value.length > 5 ? "text-4xl md:text-5xl" : "text-5xl md:text-7xl"
                     } ${i === 0 ? "text-marigold" : "text-white"}`}
                   >
                     {s.value}
