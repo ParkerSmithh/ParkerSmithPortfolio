@@ -72,13 +72,13 @@ export function YouTubeShowcase() {
             <h3 className="t-heading-sm">Featured videos</h3>
           </Reveal>
           <div className="mt-6 grid gap-8 lg:grid-cols-12 lg:gap-6">
-            <Reveal className="lg:col-span-7">
-              <VideoCard video={featured} featured index={0} />
+            <Reveal className="lg:col-span-8">
+              <VideoCard video={featured} featured bare index={0} />
             </Reveal>
-            <Stagger as="ul" className="grid content-start gap-5 lg:col-span-5" stagger={0.08}>
+            <Stagger as="ul" className="grid content-start gap-6 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1" stagger={0.08}>
               {rest.map((v, i) => (
                 <StaggerItem as="li" key={v.id}>
-                  <VideoCard video={v} index={i + 1} compact />
+                  <VideoCard video={v} index={i + 1} bare />
                 </StaggerItem>
               ))}
             </Stagger>

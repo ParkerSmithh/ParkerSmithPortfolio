@@ -41,7 +41,7 @@ export const streamCustomerCode = "";
 export const youtubeVideos: VideoEntry[] = [
   {
     id: "yt-rtx-5070-ti",
-    title: "Video 1",
+    title: "RTX 5070 Ti Budget PC Build",
     description: "",
     category: "PC Build",
     thumbnail: "/images/youtube/rtx-5070-ti.webp",
@@ -52,7 +52,7 @@ export const youtubeVideos: VideoEntry[] = [
   },
   {
     id: "yt-fortnite-chapter-5",
-    title: "Video 2",
+    title: "Fortnite Chapter 5",
     description: "",
     category: "",
     thumbnail: "/images/youtube/fortnite-chapter-5.webp",
@@ -63,7 +63,7 @@ export const youtubeVideos: VideoEntry[] = [
   },
   {
     id: "yt-fortnite-2024",
-    title: "Video 3",
+    title: "Fortnite 2024",
     description: "",
     category: "",
     thumbnail: "/images/youtube/fortnite-2024.webp",

@@ -11,11 +11,14 @@ export function VideoCard({
   video,
   featured = false,
   compact = false,
+  bare = false,
   index,
 }: {
   video: VideoEntry;
   featured?: boolean;
   compact?: boolean;
+  /** Thumbnail only — no title, description or tags. The title stays as the accessible name. */
+  bare?: boolean;
   index: number;
 }) {
   const { open } = useVideoPlayer();
@@ -54,7 +57,7 @@ export function VideoCard({
       </div>
 
       <div className={`absolute flex gap-1.5 ${compact ? "left-2 top-2" : "left-3 top-3"}`}>
-        {!compact && video.category && <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>}
+        {!compact && !bare && video.category && <span className="pill bg-white/95 text-xs text-ink">{video.category}</span>}
         {!playable && (
           <span className={`pill bg-marigold text-ink ${compact ? "px-2 py-0.5 text-[0.6875rem]" : "text-xs"}`}>
             Awaiting upload
@@ -70,7 +73,7 @@ export function VideoCard({
     </div>
   );
 
-  const body = (
+  const body = bare ? null : (
     <div className={compact ? "min-w-0 flex-1" : "mt-4"}>
       {compact && video.category && <p className="t-eyebrow text-stone">{video.category}</p>}
       <h4 className={`${featured ? "t-heading-sm" : "text-base font-semibold tracking-tight"} ${compact ? "mt-1 leading-snug" : ""} text-ink`}>
