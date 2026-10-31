@@ -9,6 +9,10 @@ export type SkillGroup = {
   icon: SkillIcon;
   tone: SkillTone;
   items: string[];
+  /** Optional app logo (path under /public). Replaces the icon when set. */
+  logo?: string;
+  /** Sit the logo on a white tile — for logos without their own background. */
+  logoOnTile?: boolean;
 };
 
 export const skills: SkillGroup[] = [
@@ -18,6 +22,7 @@ export const skills: SkillGroup[] = [
     icon: "palette",
     tone: "white",
     items: ["Adobe Photoshop", "Adobe Illustrator", "Adobe Premiere Pro"],
+    logo: "/images/skills/photoshop.webp",
   },
   {
     id: "gamedev",
@@ -25,6 +30,7 @@ export const skills: SkillGroup[] = [
     icon: "gamepad",
     tone: "marigold",
     items: ["Unreal Engine", "Unreal Editor for Fortnite (UEFN)"],
+    logo: "/images/skills/uefn.webp",
   },
   {
     id: "3d",
@@ -32,6 +38,8 @@ export const skills: SkillGroup[] = [
     icon: "box",
     tone: "sky",
     items: ["Blender"],
+    logo: "/images/skills/blender.webp",
+    logoOnTile: true,
   },
   {
     id: "ai",
@@ -39,5 +47,6 @@ export const skills: SkillGroup[] = [
     icon: "sparkles",
     tone: "midnight",
     items: ["Claude Code", "ChatGPT"],
+    logo: "/images/skills/chatgpt.svg",
   },
 ];

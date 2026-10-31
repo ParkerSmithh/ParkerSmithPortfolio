@@ -1,5 +1,6 @@
 import { Box, Code2, Gamepad2, Palette, Sparkles, Video } from "lucide-react";
 import { skills, type SkillGroup, type SkillIcon, type SkillTone } from "../data/skills";
+import { asset } from "../lib/asset";
 import { SectionHeading, Stagger, StaggerItem } from "./AnimatedSection";
 
 const ICONS: Record<SkillIcon, typeof Box> = {
@@ -33,12 +34,22 @@ function SkillCard({ group }: { group: SkillGroup }) {
         className={`absolute -right-8 -top-8 h-28 w-28 rounded-full transition-transform duration-500 ease-out group-hover:scale-125 ${t.deco}`}
       />
       <div className="relative">
-        <span className={`flex h-12 w-12 items-center justify-center rounded-card ${t.icon}`}>
-          <Icon
-            className="h-6 w-6 transition-transform duration-300 ease-out group-hover:-rotate-12 group-hover:scale-110"
-            aria-hidden
-          />
-        </span>
+        {group.logo ? (
+          <span
+            className={`flex h-14 w-14 items-center justify-center transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 ${
+              group.logoOnTile ? "rounded-card bg-white p-2.5" : ""
+            }`}
+          >
+            <img src={asset(group.logo)} alt="" width={56} height={56} loading="lazy" className="h-full w-full object-contain" />
+          </span>
+        ) : (
+          <span className={`flex h-12 w-12 items-center justify-center rounded-card ${t.icon}`}>
+            <Icon
+              className="h-6 w-6 transition-transform duration-300 ease-out group-hover:-rotate-12 group-hover:scale-110"
+              aria-hidden
+            />
+          </span>
+        )}
         <h3 id={`skill-${group.id}`} className="t-heading-sm mt-8">
           {group.title}
         </h3>
